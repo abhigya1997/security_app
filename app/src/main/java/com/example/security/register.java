@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,10 +41,21 @@ public class register extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         //progressBar = findViewById(R.id.progressBar);
 
+
         if(fAuth.getCurrentUser() != null)
         {
+            String email = fAuth.getCurrentUser().getEmail();
+            Log.e("FLAG", String.valueOf(email.contains("security")));
+            if(email.contains("security")){
+                Intent intent = new Intent(getApplicationContext(), securer.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+            Log.e("CHECK", "WHy here");
             startActivity(new Intent(getApplicationContext() , MainActivity.class));
             finish();
+            return;
         }
 
         register.setOnClickListener(new View.OnClickListener() {

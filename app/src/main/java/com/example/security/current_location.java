@@ -30,17 +30,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -48,8 +41,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Time;
 
 
 public class current_location extends FragmentActivity implements OnMapReadyCallback,
@@ -76,13 +68,20 @@ public class current_location extends FragmentActivity implements OnMapReadyCall
     private String userId ;
     private boolean imp ;
 
-
+    // TODO How to cancel help request
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_location);
         Intent intent = getIntent();
-        userId = "check";//intent.getStringExtra("userId");
+        userId = FirebaseAuth.getInstance().getUid();//intent.getStringExtra("userId");
+
+
+        DatabaseReference helpDB = FirebaseDatabase.getInstance().getReference();
+
+        helpDB.child("helps").child(userId).setValue(new UserHelp(userId, true));
+//        helpDB.child("/helps-history").setValue(userId);
+//        helpDB.child("helps").child(userId).removeValue(); // once peering is done
 
         Toast.makeText(current_location.this, "success" , Toast.LENGTH_SHORT).show();
 

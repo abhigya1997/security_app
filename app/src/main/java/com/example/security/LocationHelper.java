@@ -8,6 +8,7 @@ public class LocationHelper {
         Longitude = longitude;
         Latitude = latitude;
     }
+    public LocationHelper(){}
 
     public double getLongitude() {
         return Longitude;

@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".securer">
+    tools:context=".securer"
+    android:orientation="vertical">
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="6"
+    android:id="@+id/helper_list">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ListView>
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Logout"
+    android:layout_margin="20dp"
+    android:textSize="15dp"
+    android:layout_marginTop="30dp"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:id="@+id/logout_button"
+    android:layout_weight="1"
+    android:background="@color/colorAccent"/>
+</LinearLayout>
