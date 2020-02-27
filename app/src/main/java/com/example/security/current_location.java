@@ -12,6 +12,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -77,7 +79,7 @@ public class current_location extends FragmentActivity implements OnMapReadyCall
         userId = FirebaseAuth.getInstance().getUid();//intent.getStringExtra("userId");
 
 
-        DatabaseReference helpDB = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference helpDB = FirebaseDatabase.getInstance().getReference();
 
         helpDB.child("helps").child(userId).setValue(new UserHelp(userId, true));
 //        helpDB.child("/helps-history").setValue(userId);
@@ -92,6 +94,17 @@ public class current_location extends FragmentActivity implements OnMapReadyCall
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
+
+
+            Button btn = findViewById(R.id.exit_help);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("TAG", "Exiting from help");
+                    helpDB.child("helps").child(userId).removeValue();
+                    finish();
+                }
+            });
 
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -203,7 +216,6 @@ public class current_location extends FragmentActivity implements OnMapReadyCall
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14F));
 
         }
-
 
 
 
